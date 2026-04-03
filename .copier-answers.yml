@@ -1,0 +1,13 @@
+# Changes here will be overwritten by Copier
+AddPrecommitUpdateCI: true
+Authors: Alberto DeMarchi <aldmarchi@gmail.com>, Dominique Orban <dominique.orban@gmail.com>
+JuliaMinVersion: '1.10'
+License: MPL-2.0
+LicenseCopyrightHolders: Alberto DeMarchi, Dominique Orban
+PackageName: Envelopt
+PackageOwner: JuliaSmoothOptimizers
+PackageUUID: 417aea36-706c-5cbc-964a-c036b78ce24c
+StrategyConfirmIncluded: false
+StrategyLevel: 2
+StrategyReviewExcluded: false
+_src_path: /Users/dpo/.julia/packages/BestieTemplate/fOzc4

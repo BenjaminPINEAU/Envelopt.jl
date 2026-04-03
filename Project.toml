@@ -1,0 +1,13 @@
+name = "Envelopt"
+uuid = "417aea36-706c-5cbc-964a-c036b78ce24c"
+authors = [
+    "Alberto DeMarchi <aldmarchi@gmail.com>",
+    " Dominique Orban <dominique.orban@gmail.com>",
+]
+version = "0.1.0"
+
+[workspace]
+projects = ["test", "docs"]
+
+[compat]
+julia = "1.10"
