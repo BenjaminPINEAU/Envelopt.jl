@@ -57,7 +57,7 @@ function envelopt(
   NLPModels.reset!(env_model.model)
   NLPModels.reset!(env_model.F)
 
-  stats = GenericExecutionStats(env_model)
+  stats = EnveloptExecutionStats(GenericExecutionStats(env_model), env_model)
 
   x = get_x0(env_model)
   x0 = copy(x)  # to restore env_model.meta.x0 at the end
@@ -122,6 +122,7 @@ function envelopt(
     subsolver(env_model, x, outer_iter; tol = dtol)
     subsolver_failed = failed(substats)
     tot_inner_iter += substats.iter
+    set_solver_specific!(stats, :subiter, tot_inner_iter)
     tot_iter += 1
 
     if subsolver_failed

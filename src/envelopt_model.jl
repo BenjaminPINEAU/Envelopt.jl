@@ -482,3 +482,14 @@ NLPModels.jtprod_nln!(
   v::AbstractVector,
   jtv::AbstractVector,
 ) = jtprod_nln!(model.model, x, v, jtv)
+
+
+function EnveloptExecutionStats(
+    stats::GenericExecutionStats,
+    envelopt_model::EnveloptNLPModel
+) where{T, V}
+
+    set_solver_specific!(stats, :subiter, 0)
+
+    return stats
+end
