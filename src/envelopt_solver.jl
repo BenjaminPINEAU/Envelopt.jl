@@ -102,18 +102,13 @@ function envelopt(
   tot_inner_iter = 0
   tot_iter = 0
 
-  set_status!(stats,
-    get_status(
-      max_outer,
-      outer_iter, 
-      stationary,
-      subsolver_failed,
-      get_substat(substats)
-    ),
+  set_status!(
+    stats,
+    get_status(max_outer, outer_iter, stationary, subsolver_failed, get_substat(substats)),
   )
 
   callback(env_model, subsolver, stats)
-  done = stats.status != :unknown 
+  done = stats.status != :unknown
 
   # FIXME: smarter stopping condition
   # while !(stationary || subsolver_failed || outer_iter ≥ max_outer)
@@ -194,14 +189,9 @@ function envelopt(
     dual_feasible = kkt ≤ dtol_min
     primal_feasible = feasibility ≤ ptol_min
     stationary = dual_feasible && primal_feasible
-    set_status!(stats,
-      get_status(
-        max_outer,
-        outer_iter, 
-        stationary,
-        subsolver_failed,
-        get_substat(substats)
-      ),
+    set_status!(
+      stats,
+      get_status(max_outer, outer_iter, stationary, subsolver_failed, get_substat(substats)),
     )
     callback(env_model, subsolver, stats)
     done = stats.status != :unknown
@@ -234,10 +224,10 @@ end
 function get_status(
   max_iter = Inf,
   outer_iter = 0,
-  stationary = false, 
+  stationary = false,
   subsolver_failed = false,
-  substatus = :unknown
-)  
+  substatus = :unknown,
+)
   if outer_iter ≥ max_iter
     :max_iter
   elseif stationary

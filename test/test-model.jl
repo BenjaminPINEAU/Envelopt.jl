@@ -95,7 +95,10 @@ end
   @test all(env_model.u .== 1.0)
 end
 
-@testitem "set_slack_variable! is called during envelopt and env_model.u is updated" tags=[:model, :madnlp] begin
+@testitem "set_slack_variable! is called during envelopt and env_model.u is updated" tags=[
+  :model,
+  :madnlp,
+] begin
   using ADNLPModels, ProximalOperators
   model = ADNLPModel(x -> (x[1] - 1.0)^2 + 100 * (x[2] - x[1]^2)^2, [-1.2; 1.0])
   h = NormL1(1.0)

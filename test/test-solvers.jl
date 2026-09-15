@@ -160,7 +160,6 @@ end
   @test Envelopt.get_status(20, 3, false, true, :max_iter) == :max_iter
 end
 
-
 @testitem "stats.iter counts outer iterations" tags=[:stats, :madnlp] begin
   using ADNLPModels, ProximalOperators
   model = ADNLPModel(x -> (x[1] - 1.0)^2 + 100 * (x[2] - x[1]^2)^2, [-1.2; 1.0])
