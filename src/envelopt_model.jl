@@ -1,7 +1,7 @@
 import NLPModels
 
 export EnveloptNLPModel, EnveloptLBFGSModel, EnveloptLSR1Model
-export set_penalty!, set_multiplier!
+export set_penalty!, set_multiplier!, set_status!
 
 """
 A structure to represent the problem
