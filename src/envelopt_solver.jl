@@ -49,7 +49,6 @@ function envelopt(
   max_outer::Int = 20,
   dtol_min::Float64 = 1.0e-6,
   ptol_min::Float64 = 1.0e-6,
-  # callback = env_model -> false,  # use to update the model, e.g., if it is an NCLModel
   callback = (args...) -> nothing,
   indent::String = "",
 )
@@ -102,7 +101,6 @@ function envelopt(
   substats = subsolver.stats
   tot_inner_iter = 0
   tot_iter = 0
-
   set_status!(
     stats,
     get_status(max_outer, outer_iter, stationary, subsolver_failed, get_substat(substats)),
@@ -112,7 +110,6 @@ function envelopt(
   done = stats.status != :unknown
 
   # FIXME: smarter stopping condition
-  # while !(stationary || subsolver_failed || outer_iter ≥ max_outer)
   while !done
     # solve subproblem with x as initial guess
     subsolver(env_model, x, outer_iter; tol = dtol)
@@ -177,7 +174,7 @@ function envelopt(
     outer_iter += 1
 
     set_objective!(stats, fval + hval)
-    set_iter!(stats, stats.iter + 1)
+    set_iter!(stats, outer_iter)
     set_time!(stats, time() - start_time)
     set_solution!(stats, substats.solution)
     set_dual_residual!(stats, substats.dual_feas)
@@ -198,7 +195,6 @@ function envelopt(
     callback(env_model, subsolver, stats)
     done = stats.status != :unknown
   end
-  verbose && @info log_line
 
   if subsolver_failed
     verbose && @info "$(indent)subsolver failed"

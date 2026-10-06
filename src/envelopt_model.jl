@@ -205,7 +205,7 @@ function set_slack_variable!(
   model::EnveloptNLPModel{T, S, META, NLP, FMODEL, H},
   u::S,
 ) where {T, S, META, NLP, FMODEL, H}
-  model.u = u
+  model.u .= u
   return model
 end
 
