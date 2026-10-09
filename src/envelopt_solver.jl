@@ -68,8 +68,10 @@ function envelopt(
   subsolver.stats.multipliers_U .= 0
 
   T = eltype(x)
-  set_multiplier!(env_model, zero(T))  # FIXME: smarter initialization
-  set_penalty!(env_model, one(T))      # initial penalty
+  # set_multiplier!(env_model, zero(T))  # FIXME: smarter initialization
+  # set_penalty!(env_model, one(T))      # initial penalty
+  set_multiplier!(env_model, env_model.y)
+  set_penalty!(env_model, env_model.μ)
   Fμy = similar(env_model.Fμy)
   u = similar(env_model.ph)
   y = similar(env_model.y)
@@ -122,6 +124,10 @@ function envelopt(
       verbose && @error "subproblem solver fails with" substats.status
       # FIXME: try to recover
       done = true
+      set_status!(
+        stats,
+        get_status(max_outer, outer_iter, stationary, subsolver_failed, get_substat(substats)),
+      )
       continue
     end
 
@@ -206,8 +212,8 @@ function envelopt(
     verbose && @info "$(indent)found an approximate stationary point"
   end
 
-  copyto!(get_x0(env_model), x0)  # restore env_model.meta.x0
-  copyto!(get_y0(env_model), y0)  # restore env_model.meta.y0
+  # copyto!(get_x0(env_model), x0)  # restore env_model.meta.x0
+  # copyto!(get_y0(env_model), y0)  # restore env_model.meta.y0
 
   fx = obj(env_model.model, stats.solution)
   hu = env_model.h(u)

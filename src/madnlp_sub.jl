@@ -81,7 +81,7 @@ const status_map = Dict(
   MadNLP.MAXIMUM_WALLTIME_EXCEEDED => :max_time,
   MadNLP.DIVERGING_ITERATES => :unbounded,
   MadNLP.INVALID_NUMBER_DETECTED => :exception,
-  MadNLP.ERROR_IN_STEP_COMPUTATION => :small_step,
+  MadNLP.SEARCH_DIRECTION_BECOMES_TOO_SMALL => :small_step,
   MadNLP.INTERNAL_ERROR => :exception,
   MadNLP.USER_REQUESTED_STOP => :user,
 )
